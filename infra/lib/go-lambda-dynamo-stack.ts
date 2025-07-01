@@ -34,11 +34,11 @@ export class GoLambdaDynamoStack extends cdk.Stack {
       }
     })
 
-    // API resources
+    // API Proxy
     const integration = new LambdaIntegration(lambdaFunction)
-    const testResource = api.root.addResource("test")
-    testResource.addMethod("GET", integration)
-    const peopleRespource = api.root.addResource("people")
-    peopleRespource.addMethod("GET", integration)
+    api.root.addProxy({
+      defaultIntegration: integration,
+      anyMethod: true
+    })
   }
 }
